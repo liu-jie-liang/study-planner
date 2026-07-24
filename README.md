@@ -1,41 +1,24 @@
 # study-planner — 学习路径设计师
 
-**确定学习目标 → 搜索最新学习资源 → 设计逐天教学计划 → 产出 learning-coach 兼容的 CONTEXT.md + PROFILE.md。**
+确定学习目标 → 搜索最新学习资源 → 设计逐天教学计划 → 产出 learning-coach 兼容的计划文件。
 
-不执行教学，只设计路径。产出给 `learning-coach` 使用。
+不执行教学，只设计路径。
 
-## 调用链中的位置
+## 什么时候用
 
-```
-career-advisor          study-planner          learning-coach
-    │                       │                       │
-    ├─ 诊断职业方向          ├─ 读取 CAREER-PROFILE.md  ├─ 读取 CONTEXT.md
-    ├─ 市场数据验证          ├─ 搜最新学习路径           ├─ 读取 PROFILE.md
-    ├─ 输出 CAREER-PROFILE ─→├─ 输出 CONTEXT.md ───────→├─ 生成教学文件
-    │                       ├─ 输出 PROFILE.md ────────→├─ 追踪进度 + 错题
-    │                       │                       │
-    ▼                       ▼                       ▼
-  确定学什么              设计怎么学              逐天执行教学
-```
+- 知道要学什么但不知道怎么拆成每天进度
+- 需要一份结构化的学习计划（概念依赖 ≤ 2/天）
+- 需要 learning-coach 可消费的教学规则和计划文件
+- 不确定怎么验证学习成果（需要设计验证点）
 
-- **上游依赖**：`career-advisor`（可选，优先读取 CAREER-PROFILE.md 避免重复提问）
-- **下游消费者**：`learning-coach`（必需，读取 CONTEXT.md + PROFILE.md 执行教学）
-- **搜索规则**：继承 `web-verify` 的信源过滤策略
+## 前置条件
 
-## 它解决什么问题
-
-你知道要学什么但不知道怎么拆成每天的进度。study-planner 做四件事：
-
-1. **结构化提问**：搞清楚目标、基础、时间、约束（如果 CAREER-PROFILE.md 已有则跳过已覆盖维度）
-2. **按需搜索**：就业市场数据、考试大纲、技术版本，用 `web-verify` 级信源过滤
-3. **逐天拆解**：每天 ≤ 2 个新概念，教学三件套（teaching + exercises + solutions），阶段整合日
-4. **产出两份文件**：CONTEXT.md（规则）+ PROFILE.md（学习者画像 + 计划 + 全景图）
+如果连学什么都不知道，它会建议先用 [career-advisor](https://github.com/liu-jie-liang/career-advisor) 确定职业方向。有 CAREER-PROFILE.md 时可跳过已覆盖维度。
 
 ## 安装
 
 ```bash
-mkdir -p ~/.trae/skills/study-planner
-cp SKILL.md ~/.trae/skills/study-planner/
+cp -r study-planner ~/.trae/skills/
 ```
 
 ## 使用
@@ -44,7 +27,14 @@ cp SKILL.md ~/.trae/skills/study-planner/
 Use Skill: study-planner
 ```
 
-如果不知道学什么，它会建议先用 `career-advisor` 确定职业方向。
+它分四步走：问（结构化提问）→ 查（搜索最新资源）→ 拆（设计逐天计划，每天 ≤ 2 个新概念）→ 存（产出 CONTEXT.md + PROFILE.md）。产出给 learning-coach 消费。
+
+## 调用链
+
+```
+career-advisor → study-planner → learning-coach
+    确定学什么      设计怎么学      逐天执行教学
+```
 
 ## 已验证
 
