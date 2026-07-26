@@ -27,13 +27,13 @@ cp -r study-planner ~/.trae/skills/
 Use Skill: study-planner
 ```
 
-它分四步走：问（结构化提问）→ 查（搜索最新资源）→ 拆（设计逐天计划，每天 ≤ 2 个新概念）→ 存（产出 CONTEXT.md + PROFILE.md）。产出给 learning-coach 消费。
+它分四步走：问（结构化提问）→ 查（搜索最新资源）→ 拆（设计逐天计划，每天 ≤ 2 个新概念）→ 存（产出 RULES.md + PLAN.md）。产出给 learning-coach 消费。
 
 ## 调用链
 
 ```
-career-advisor → study-planner → learning-coach
-    确定学什么      设计怎么学      逐天执行教学
+career-advisor → study-planner → learning-coach → job-hunt-coach
+    确定学什么      设计怎么学      逐天执行教学      求职落地
 ```
 
 ## 已验证

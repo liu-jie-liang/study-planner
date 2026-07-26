@@ -1,13 +1,14 @@
 # TEMPLATES — study-planner 格式模板 + 场景示例
 
 > L2 按需加载。study-planner 在"第四轮：存"时读取此文件。
+> {workspace} = 当前项目工作区根目录
 
 ---
 
-## 一、CONTEXT.md 格式
+## 一、RULES.md 格式
 
 ```markdown
-# CONTEXT — [领域] 学习系统
+# RULES — [领域] 教学规则
 
 > 领域术语表和教学设计原则。不要往这里放实现细节。
 
@@ -29,7 +30,7 @@
 3. `dayXX_solutions.{后缀}` — 参考答案
 
 ### 全景图（Panoramic Map）
-两层全景图都写在 PROFILE.md，教学文件只引用不重复。
+两层全景图都写在 PLAN.md，教学文件只引用不重复。
 
 ## 二、教学内容的四个要素
 对每个新概念，教学必须覆盖：概念 / 演示 / 为什么 / 跨领域类比
@@ -41,13 +42,7 @@
 ## 四、边界情况与常见误用
 教学区末尾必须有"常见边界情况"区块。
 
-## 五、错题集
-核心教训优先，归类合并，每条说清"为什么需要记住"。
-
-## 六、AI 教学经验日志
-记录在 `docs/ai-teaching-log.md`。
-
-## 七、项目结构
+## 五、项目结构
 
 **教学文件目录**：[目录名]
 **教学文件后缀**：[.py / .md / ...]
@@ -56,13 +51,13 @@
 [项目结构图]
 ```
 
-## 八、运行环境
+## 六、运行环境
 - [环境信息]
 ```
 
 ---
 
-## 二、PROFILE.md 格式
+## 二、PLAN.md 格式
 
 ```markdown
 # 个人学习档案
@@ -70,8 +65,7 @@
 > 最后更新：[日期]
 
 ## 一、基本情况
-[年龄、背景、可用时间、约束条件]
-（如果 CAREER-PROFILE.md 已存在 → 只保留学习相关字段：每天学习时间、设备、GitHub、英语等，其余加一行 `> 职业背景详见 [CAREER-PROFILE.md](./config/CAREER-PROFILE.md)`）
+> 职业背景详见 [{workspace}/config/CAREER-PROFILE.md]。此处仅保留学习相关字段：每天学习时间、设备、GitHub、英语
 
 ## 二、已有基础
 [和本领域相关的基础]
@@ -97,50 +91,29 @@
 - "概念数" 列 = 数字
 - 每 5-7 天为一个阶段，阶段末设整合日
 
-## 六、学习进度
-
-> 状态说明：📖 = 教学已读 | ✏️ = 练习中 | ✅ = 全部完成
-
-| 日期 | 天 | 你会 | 状态 | 产出 |
-|------|-----|------|:--:|------|
-
-## 七、快捷参考
-[领域特定的对照表，如 Java↔Python]
-
-## 八、错题集
-[初始化空]
-
-## 九、已确认关键决策
-（如果 CAREER-PROFILE.md 已存在 → 替换为 `> 职业方向决策详见 [CAREER-PROFILE.md](./config/CAREER-PROFILE.md)`，不重复写入）
-（如果 CAREER-PROFILE.md 不存在 → 写入方向、主语言、约束等决策）
-- 方向：[X]
-- 主语言：[X]
-- 约束：[X]
-
-## 十、新建会话使用方式
+## 六、新建会话使用方式
 
 给 AI 的学习指令：
 
-1. Use Skill: learning-coach
-   （AI 会自动读取 CONTEXT.md + PROFILE.md + docs/ai-teaching-log.md）
+1. Use Skill: learning-coach  <!-- skill 位置：~/.trae/skills/learning-coach/ -->
+   （AI 会自动读取 RULES.md + PLAN.md + {workspace}/docs/ai-teaching-log.md）
 ```
 
 ### 保存前自查
 
 - [ ] 计划表每行概念数 ≤ 2？
 - [ ] 全景图两层都有？（项目产出 + 心智模型）
-- [ ] CONTEXT.md 的教学文件目录和后缀都填了？
-- [ ] PROFILE.md 进度表状态说明行存在？
+- [ ] RULES.md 的教学文件目录和后缀都填了？
 
 ### 保存后告知
 
 ```
 已创建：
-- CONTEXT.md → AI 教学规则
-- PROFILE.md → 你的学习档案 + 计划
-- docs/ai-teaching-log.md → AI 教学日志
+- RULES.md → AI 教学规则
+- PLAN.md → 你的学习计划 + 全景图
 
-下一步：用 `Use Skill: learning-coach` 开始学习。
+下一步：在新会话中输入 `Use Skill: learning-coach` 开始学习。
+学完后可以用 `Use Skill: job-hunt-coach` 进入求职阶段。
 ```
 
 ---
@@ -154,7 +127,7 @@
 1. 问清背景（Java 中级）、城市（广州）、目标公司
 2. 搜索广州 Python AI 岗位、关键框架版本
 3. 设计 12 周 84 天计划：Python 基础 → LLM 调用 → RAG → Agent → 项目
-4. 创建 CONTEXT.md（教学规则 + 运行环境） + PROFILE.md（计划 + 全景图）
+4. 创建 RULES.md（教学规则 + 运行环境） + PLAN.md（计划 + 全景图）
 
 ### 示例 2：学法律
 
@@ -163,4 +136,4 @@
 1. 问清基础（法本还是非法本）、目标（过线还是高分）
 2. 搜索 2026 法考大纲
 3. 设计 6 个月按科目拆分的计划：民法→刑法→行政法→诉讼法→商经→理论法
-4. 创建 CONTEXT.md（法律教学规则：案例驱动、法条对照、错题分类） + PROFILE.md
+4. 创建 RULES.md（法律教学规则：案例驱动、法条对照、错题分类） + PLAN.md
